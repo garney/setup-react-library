@@ -10,6 +10,10 @@
   "bin": {
     "setup-react-library": "./bin/setup.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garney/setup-react-library.git"
+  },
   "preferGlobal": true,
   "keywords": [
     "rollup",
