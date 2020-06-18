@@ -13,6 +13,9 @@ const basicReactAction = require('./src/actions/basic-react-action');
 // action types
 const npmInit = require ('./src/action-types/npm-init');
 const npmI = require ('./src/action-types/npm-i');
+const runS = require ('./src/action-types/run-s');
+const chdir = require ('./src/action-types/chdir');
+const mkdir = require ('./src/action-types/mkdir');
 
 // generators
 const helperGenerator = require('./src/generators/helper');
@@ -36,6 +39,9 @@ module.exports = function (plop) {
 
     npmInit(plop);
     npmI(plop);
+    runS(plop);
+    chdir(plop);
+    mkdir(plop);
 
 
     plop.addPartial('greeting', 'Hello, my name is {{ properCase name }} .');

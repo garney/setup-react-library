@@ -23,6 +23,8 @@ function  generator(plop) {
             }],
         actions: (data) => {
             console.log('starting rollup generator');
+            const folderPath = cwd;
+            const setupArray = [];
             data.name = data.name === '' ? dirName : data.name;
             data.description = data.description === '' ? 'Put your description here' : data.description;
             data.author = data.author || '';
@@ -30,45 +32,45 @@ function  generator(plop) {
                 '@rollup/plugin-commonjs', '@rollup/plugin-node-resolve', '@rollup/plugin-replace',
                 'npm-run-all', '@babel/core', '@babel/plugin-transform-runtime',
             '@babel/preset-env', '@babel/preset-react'];
-            return [
+            const actionsArray =  [
                 {
                     type: 'add',
-                    path: `${cwd}/.babelrc`,
+                    path: `${folderPath}/.babelrc`,
                     templateFile: 'src/plop-templates/rollup-component-library/.babelrc'
                 },
                 {
                     type: 'add',
-                    path: `${cwd}/package.json`,
+                    path: `${folderPath}/package.json`,
                     templateFile: 'src/plop-templates/rollup-component-library/package.json'
                 },
                 {
                     type: 'add',
-                    path: `${cwd}/.gitignore`,
+                    path: `${folderPath}/.gitignore`,
                     templateFile: 'src/plop-templates/rollup-component-library/.gitignore'
                 },
                 {
                     type: 'add',
-                    path: `${cwd}/README.md`,
+                    path: `${folderPath}/README.md`,
                     templateFile: 'src/plop-templates/rollup-component-library/README.md'
                 },
                 {
                     type: 'add',
-                    path: `${cwd}/.npmignore`,
+                    path: `${folderPath}/.npmignore`,
                     templateFile: 'src/plop-templates/rollup-component-library/.npmignore'
                 },
                 {
                     type: 'add',
-                    path: `${cwd}/src/index.js`,
+                    path: `${folderPath}/src/index.js`,
                     templateFile: 'src/plop-templates/rollup-component-library/src/index.js'
                 },
                 {
                     type: 'add',
-                    path: `${cwd}/.nvmrc`,
+                    path: `${folderPath}/.nvmrc`,
                     templateFile: 'src/plop-templates/rollup-component-library/.nvmrc'
                 },
                 {
                     type: 'add',
-                    path: `${cwd}/rollup.config.js`,
+                    path: `${folderPath}/rollup.config.js`,
                     templateFile: 'src/plop-templates/rollup-component-library/rollup.config.js'
                 },
                 {
@@ -79,7 +81,9 @@ function  generator(plop) {
                     packages: rollupDevDep,
                     dev: true
                 }
-            ]
+            ];
+
+            return setupArray.concat(actionsArray);
         }
     });
 }

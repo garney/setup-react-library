@@ -1,12 +1,18 @@
 // ./lib/index.js
+const run = require('./src/helpers/run');
 
 /**
  * Displays a string in the console
  *
  * @param {string_to_say} String string to show in the console
  */
-const setup = function(name) {
+const setup = async function(name) {
     const nodePlop = require('node-plop');
+    // if(name) {
+    //     await run(`mkdir ${name}`);
+    //     process.chdir(name);
+    // }
+
 // load an instance of plop from a plopfile
     const cwd = process.cwd();
     console.log(__dirname);
