@@ -1,0 +1,8 @@
+// initialise sentry
+Sentry.init(
+    {
+        dsn: '{{dsn}}',
+        release: `${applicationConfig.appName}@${applicationConfig.version}`
+    });
+
+export default class EntryApp extends BasicApp

@@ -1,0 +1,65 @@
+const webpack = require('webpack');
+const path = require('path');
+const webpackMerge = require('webpack-merge');
+const CommonConfig = require('./webpack.common');
+const favicons = require('./commons/favicons');
+const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+const ReplacePlugin = require('webpack-plugin-replace');
+const appConfig = require('../containers/app/app-config');
+
+const GENERATE_FOR_DEVICES = false;
+
+if (!process.env.ASSET_CDN_PATH) {
+    throw new Error('No asset CDN path specified. Did you forget to define it?' +
+						' (In trooper env, or use cross-env)');
+}
+if (!process.env.BUNDLE_CDN_PATH) {
+    throw new Error('No bundle CDN path specified. Did you forget to define it?' +
+        ' (In trooper env, or use cross-env)');
+}
+
+const version = process.env.VERSION || '0.0.0';
+
+module.exports = webpackMerge(CommonConfig, {
+    output: {
+        path: path.resolve('public/bundles'),
+        filename: '[name].[chunkhash].js',
+        publicPath: process.env.BUNDLE_CDN_PATH
+    },
+
+    plugins: [
+        new ReplacePlugin({
+            include: [
+                'containers/app/app-config.js'
+            ],
+            values: {
+                '0.0.0': version
+            }
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            sourceMap: true
+        }),
+        new webpack.SourceMapDevToolPlugin({
+            filename: './sourcemaps/[name].[chunkhash].js.map'
+        }),
+        new SentryWebpackPlugin({
+            include: '.',
+            ignore: ['node_modules', 'locale', 'public'],
+            configFile: 'sentry.properties',
+            release: `${appConfig.appName}@${version}`,
+            setCommits: {
+                repo: 'mathletics/{{name}}',
+                auto: true
+            }
+        }),
+        favicons(GENERATE_FOR_DEVICES)
+    ]
+});

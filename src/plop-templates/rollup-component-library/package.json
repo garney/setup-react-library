@@ -1,0 +1,22 @@
+{
+  "name": "{{name}}",
+  "version": "0.1.0",
+  "description": "{{description}}",
+  "main": "build/index.js",
+  "keywords": [
+    "react",
+    "{{name}}"
+  ],
+  "scripts": {
+    "cleanup": "rimraf dist",
+    "build": "run-s cleanup build-rollup",
+    "build-rollup": "rollup -c"
+  },
+  "repository": "",
+  "author": "{{author}}",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+
+  }
+}

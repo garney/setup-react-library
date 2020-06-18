@@ -1,0 +1,82 @@
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import {toast} from 'react-toastify';
+
+import './login.scss';
+
+function Login(props) {
+    const {onLogin, credentials, configuration} = props;
+    const [username, setUsername] = useState(credentials?credentials.username:'');
+    const [password, setPassword] = useState(credentials?credentials.password:'');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [configReady, setConfigReady] = useState(false);
+    const handleLogin = (username, password) => {
+        axios.post(`${configuration.AuthenticationGatewayEndpoint}/sessions`, {
+            userName: username,
+            password
+        }).then(response => {
+            console.log(response.data);
+            const {data} = response;
+            toast('logged in successfully');
+            onLogin(data);
+
+
+        }).catch(err => {
+            setErrorMessage('Failed to Login');
+
+        });
+    };
+
+    useEffect(() => {
+        setUsername(credentials.username);
+        setPassword(credentials.password);
+        console.log(credentials);
+        if (credentials.username && credentials.username !== '' && credentials.password && credentials.password !== '') {
+            handleLogin(credentials.username, credentials.password)
+        }
+    }, [credentials]);
+
+    useEffect(() => {
+        if (configuration.AuthenticationGatewayEndpoint) {
+            setConfigReady(true);
+        }
+    }, [configuration]);
+
+
+    return (
+        <div className="login">
+
+            <div className="error-message">{errorMessage}</div>
+            <h1>Login</h1>
+            Login as an Admin
+            <input
+                placeholder={'username'}
+                defaultValue={credentials.username}
+                id={'username'}
+                onChange={(event) => {
+                    setUsername(event.target.value)
+                }}
+            />
+            <input
+                placeholder={'password'}
+                defaultValue={credentials.password}
+                id={'password'}
+                type="password"
+                onChange={(event) => {
+                    setPassword(event.target.value)
+                }}/>
+            <button
+                disabled={!configReady}
+                className={'btn btn--primary btn--small'}
+                onClick={() => {
+                    handleLogin(username, password)
+                }}
+            >Login
+            </button>
+        </div>
+
+
+    );
+}
+
+export default Login;

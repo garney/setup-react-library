@@ -1,0 +1,37 @@
+import React, {useState, useEffect} from 'react';
+
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import {
+    HashRouter as Router,
+    Switch,
+    Route
+} from 'react-router-dom';
+import {BusyIndicator} from './components/busy-indicator';
+import './app.scss'
+
+function App({data}) {
+
+    const busyOptions = {color: '#56C0A3'};
+    return (
+        <React.Fragment>
+            <Router >
+                <section className="main-section">
+                    <Switch>
+                        <Route path="/" exact>
+                            <div>Hello</div>
+                        </Route>
+
+                    </Switch>
+
+                </section>
+            </Router>
+            <ToastContainer/>
+            <BusyIndicator options={busyOptions}/>
+        </React.Fragment>
+
+    )
+}
+
+export default App;

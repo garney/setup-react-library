@@ -1,0 +1,21 @@
+import 'babel-polyfill';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import App from './src/app';
+
+import './style/main.scss'
+const init = () => {
+    ReactDOM.render(
+        <App env={{test:'test'}} />
+        ,
+        document.getElementById('root'));
+    }
+
+init();
+
+// Hot Module Replacement
+if (module.hot) {
+    module.hot.accept();
+}
+  
