@@ -10,6 +10,9 @@
   "scripts": {
     "cleanup": "rimraf dist",
     "build": "run-s cleanup build-rollup",
+    "watch": "run-p watch-rollup test-harness",
+    "test-harness": "parcel tester/index.html",
+    "watch-rollup": "rollup -c -w",
     "build-rollup": "rollup -c"
   },
   "repository": "",

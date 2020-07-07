@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.scss';
 
 const {{pascalCase name}} = ({
   children,
@@ -7,9 +8,7 @@ const {{pascalCase name}} = ({
   ...extraProps
 }) => {
 
-  return (
-    <h1>{{pascalCase name}}</h1>
-  );
+  return (<h1 className="{{name}}">{{pascalCase name}}</h1>);
 };
 
 export default {{pascalCase name}};

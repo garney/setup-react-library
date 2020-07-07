@@ -77,9 +77,7 @@ function  action(data) {
             path: './package.json',
             pattern: /\"scripts\"\:\s*\{/gi,
             template: '\n"start": "parcel index.html",'
-        },
-
-
+        }
     ];
     return actions;
 }

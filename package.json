@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A build",
+    "postversion": "git push && git push --tags && npm publish"
   },
   "bin": {
     "setup-react-library": "./bin/setup.js"
@@ -22,7 +25,10 @@
   ],
   "dependencies": {
     "change-case": "^4.1.1",
+    "elegant-spinner": "^2.0.0",
     "find-in-files": "^0.5.0",
+    "inquirer": "^7.3.0",
+    "log-update": "^4.0.0",
     "node-plop": "^0.26.0",
     "replace-in-file": "^5.0.2"
   },
